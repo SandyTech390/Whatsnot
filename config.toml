@@ -1,0 +1,41 @@
+# Whatomate Configuration
+# Copy this to config.toml and update values
+#
+# For Docker: use "db" and "redis" as hostnames
+# For local dev: use "localhost"
+
+[app]
+name = "Whatomate"
+environment = "development"  # development, staging, production
+debug = true
+
+[server]
+host = "0.0.0.0"
+port = 8080
+
+[database]
+host = "whatomate_db"
+port = 5432
+user = "whatomate"
+password = "whatomate123"
+name = "whatomate"
+
+[redis]
+host = "whatomate_redis"
+port = 6379
+password = ""
+db = 0
+
+
+[jwt]
+secret = "your-super-secret-jwt-key-change-in-production"
+access_expiry_mins = 15
+refresh_expiry_days = 7
+
+[storage]
+type = "local"  # local, s3
+local_path = "./uploads"
+s3_bucket = ""
+s3_region = ""
+s3_key = ""
+s3_secret = ""
