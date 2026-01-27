@@ -1,0 +1,140 @@
+---
+title: Authentication
+description: User registration, login, and token management
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## Overview
+
+Whatomate supports two authentication methods:
+
+1. **JWT Tokens** - For user sessions and frontend applications
+2. **API Keys** - For server-to-server integrations and automation
+
+After logging in, you receive an access token and refresh token. Include the access token in the `Authorization` header for all protected API requests. Alternatively, use an [API key](/whatomate/api-reference/api-keys) in the `X-API-Key` header.
+
+## Register
+
+Create a new user account.
+
+<Aside type="note">
+  Registration may be disabled in production environments. Contact your administrator for access.
+</Aside>
+
+```bash
+POST /api/auth/register
+```
+
+### Request Body
+
+```json
+{
+  "email": "user@example.com",
+  "password": "securepassword123",
+  "name": "John Doe"
+}
+```
+
+### Response
+
+```json
+{
+  "status": "success",
+  "data": {
+    "user": {
+      "id": "uuid",
+      "email": "user@example.com",
+      "name": "John Doe",
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    "access_token": "eyJhbGciOiJIUzI1NiIs...",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIs...",
+    "expires_in": 3600
+  }
+}
+```
+
+## Login
+
+Authenticate and receive tokens.
+
+```bash
+POST /api/auth/login
+```
+
+### Request Body
+
+```json
+{
+  "email": "user@example.com",
+  "password": "securepassword123"
+}
+```
+
+### Response
+
+```json
+{
+  "status": "success",
+  "data": {
+    "user": {
+      "id": "uuid",
+      "email": "user@example.com",
+      "name": "John Doe"
+    },
+    "access_token": "eyJhbGciOiJIUzI1NiIs...",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIs...",
+    "expires_in": 3600
+  }
+}
+```
+
+## Refresh Token
+
+Get a new access token using your refresh token.
+
+```bash
+POST /api/auth/refresh
+```
+
+### Request Body
+
+```json
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
+}
+```
+
+### Response
+
+```json
+{
+  "status": "success",
+  "data": {
+    "access_token": "eyJhbGciOiJIUzI1NiIs...",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIs...",
+    "expires_in": 3600
+  }
+}
+```
+
+## Using Tokens
+
+Include the access token in the `Authorization` header for all protected API requests:
+
+```bash
+curl -X GET "http://your-server:8080/api/contacts" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
+```
+
+## Token Expiration
+
+| Token Type | Default Expiration |
+|------------|-------------------|
+| Access Token | 1 hour |
+| Refresh Token | 7 days |
+
+<Aside type="caution">
+  Store tokens securely. Never expose tokens in client-side code or version control.
+</Aside>

@@ -1,0 +1,51 @@
+---
+title: Dashboard
+description: Monitor your WhatsApp business at a glance
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<img src="/whatomate/images/01-dashboard.png" alt="Whatomate Dashboard" />
+
+## Overview
+
+The Dashboard provides a comprehensive view of your WhatsApp business operations. Monitor key metrics, track conversations, and stay on top of your messaging activities.
+
+## Key Metrics
+
+<CardGrid>
+  <Card title="Total Messages">
+    Track the total number of messages sent and received across all your WhatsApp accounts.
+  </Card>
+  <Card title="Active Conversations">
+    Monitor ongoing conversations with your customers in real-time.
+  </Card>
+  <Card title="Campaign Performance">
+    View the success rate and engagement metrics of your bulk messaging campaigns.
+  </Card>
+  <Card title="Chatbot Analytics">
+    Analyze how your automated responses are performing.
+  </Card>
+</CardGrid>
+
+## Features
+
+### Real-time Updates
+The dashboard updates in real-time using WebSocket connections, ensuring you always see the latest data without refreshing.
+
+### Time Range Filters
+Filter your metrics by different time ranges:
+- **Today** - View metrics for the current day
+- **Last 7 days** - Week-over-week comparison
+- **Last 30 days** - Monthly overview
+- **This month** - Calendar month to date
+- **Custom range** - Select a specific date range with an interactive calendar
+
+All dashboard metrics (Total Messages, Active Conversations, Campaign Performance, Chatbot Sessions) reflect the selected time period. Your filter preference is saved locally and persists across sessions.
+
+### Quick Actions
+Access frequently used actions directly from the dashboard:
+- Send new message
+- Create campaign
+- View recent conversations
+- Access settings
